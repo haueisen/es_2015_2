@@ -1,5 +1,6 @@
 package com.tp.es;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,10 +31,11 @@ public class Assets {
         botao = loadSprite("button_placeholder.png");
         botaoPressionado = loadSprite("button_placeholder_down.png");
         botaoDesativado = loadSprite("button_placeholder_disabled.png");
+
         tela1Ref = loadSprite("tela1_referencia.png");
         tela2Ref = loadSprite("tela2_referencia.png");
 
-        bitmapFontFile = new FileHandle("font.fnt");
-        bitmapFontImage = new FileHandle("font.png");
+        bitmapFontFile = Gdx.files.internal("font.fnt");
+        bitmapFontImage =Gdx.files.internal("font.png");
     }
 }

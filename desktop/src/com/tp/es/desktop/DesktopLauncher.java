@@ -7,6 +7,7 @@ import com.tp.es.GameClass;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Clicker MPS.BR";
 		config.width = 720;
 		config.height = 480;
 		new LwjglApplication(new GameClass(), config);

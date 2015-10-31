@@ -32,7 +32,7 @@ public class TelaTitulo extends ScreenAdapter  {
     private int estado = 0;
 
     private static final int MAINMENU = 0;
-    private static final int CREDITS = 0;
+    private static final int CREDITS = 1;
 
     private boolean botaoNovoJogoPressionado = false;
     private boolean botaoContinuaJogoPressionado = false;
@@ -40,8 +40,6 @@ public class TelaTitulo extends ScreenAdapter  {
     private boolean clicou = false;
     private boolean clicando = false;
 
-    private OrthographicCamera camera;
-    private Viewport viewport;
     private Vector2 clique;
 
     private GameClass jogo;
@@ -50,20 +48,24 @@ public class TelaTitulo extends ScreenAdapter  {
     private Botao botaoContinuaJogo;
     private Botao botaoCreditos;
 
+    private BitmapFont font;
+    private String creditosTexto;
+
     public TelaTitulo(GameClass tp)
     {
         this.jogo = tp;
-
-        camera = new OrthographicCamera();
-        viewport = new ScreenViewport(camera);
 
         clique = new Vector2(-1,-1);
 
         botaoNovoJogo = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,210,70,true);
         botaoContinuaJogo = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 1.05f*botaoNovoJogo.getAltura()),210,70,false);
+        botaoCreditos = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 2.1f*botaoContinuaJogo.getAltura()),210,70,true);
 
         botaoNovoJogo.setTexto("Novo Jogo");
         botaoContinuaJogo.setTexto("Continuar");
+        botaoCreditos.setTexto("Creditos");
+
+        //se existe arquivo de save, ativa botao continua
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -90,32 +92,52 @@ public class TelaTitulo extends ScreenAdapter  {
             }
         });
 
+        font = new BitmapFont(Assets.bitmapFontFile,Assets.bitmapFontImage,false);
+
+        creditosTexto = "Daniel Pereira\nFlavio Haueisen\nHumberto Morais\nJean Freire\nLucas Castro\nThiago Sandi\nWeslei Vilela";
     }
 
     public void update(float deltaTime){
-
         //----input-------------------
-        if(!clicando && !clicou)
-        {
-            clique.set(-1,-1);
+        if (!clicando && !clicou) {
+            clique.set(-1, -1);
+        }
+        //---------------------------
+        if(estado == MAINMENU) {
+
+            if (botaoNovoJogo.verificaCliqueBotao(clique)) {
+                //novo arquivo de save
+                jogo.setScreen(new TelaJogo(jogo));
+
+            } else if (botaoContinuaJogo.verificaCliqueBotao(clique)) {
+                jogo.setScreen(new TelaJogo(jogo));
+            }
+        }
+        if (botaoCreditos.verificaCliqueBotao(clique) && clicou) {
+            estado = (estado + 1) % 2;
         }
         clicou = false;
-        //---------------------------
-        botaoNovoJogo.verificaCliqueBotao(clique);
-        botaoContinuaJogo.verificaCliqueBotao(clique);
     }
 
     @Override
     public void render(float delta) {
         update(delta);
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         jogo.batch.begin();
-        Assets.tela1Ref.draw(jogo.batch);
+        //Assets.tela1Ref.draw(jogo.batch);
 
-        botaoNovoJogo.draw(jogo.batch);
-        botaoContinuaJogo.draw(jogo.batch);
+        if(estado == MAINMENU) {
+            font.draw(jogo.batch,"CLICKER MPS.BR",220,Gdx.graphics.getHeight() - 50);
+            botaoNovoJogo.draw(jogo.batch);
+            botaoContinuaJogo.draw(jogo.batch);
+        }
+        else if(estado == CREDITS)
+        {
+            font.draw(jogo.batch, creditosTexto, 250, Gdx.graphics.getHeight() - 50);
+        }
+        botaoCreditos.draw(jogo.batch);
 
         jogo.batch.end();
     }
