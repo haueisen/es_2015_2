@@ -1,6 +1,7 @@
 package com.tp.es;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -48,6 +49,7 @@ public class Botao {
         this.texto = "";
         this.textoPosicao = new Vector2();
         this.font = new BitmapFont(Assets.bitmapFontFile,Assets.bitmapFontImage,false);
+        this.font.setColor(Color.BLACK);
 
     }
 

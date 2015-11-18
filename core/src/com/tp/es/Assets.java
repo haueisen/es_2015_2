@@ -14,9 +14,22 @@ public class Assets {
     public static Sprite tela1Ref;
     public static Sprite tela2Ref;
 
+    public static Sprite frame;
+
+    public static Sprite pc;
+    public static Sprite pcPressionado;
+
     public static Sprite botao;
     public static Sprite botaoPressionado;
     public static Sprite botaoDesativado;
+
+    public static Sprite botaoTitulo;
+    public static Sprite botaoTituloPressionado;
+    public static Sprite botaoTituloDesativado;
+
+    public static Sprite botaoTop;
+    public static Sprite botaoTopPressionado;
+    public static Sprite botaoTopDesativado;
 
     public static FileHandle bitmapFontFile;
     public static FileHandle bitmapFontImage;
@@ -28,12 +41,25 @@ public class Assets {
 
     public static void load() {
 
-        botao = loadSprite("button_placeholder.png");
-        botaoPressionado = loadSprite("button_placeholder_down.png");
-        botaoDesativado = loadSprite("button_placeholder_disabled.png");
+        botao = loadSprite("button.png");
+        botaoPressionado = loadSprite("button_down.png");
+        botaoDesativado = loadSprite("button_disabled.png");
+
+        botaoTitulo = loadSprite("button_title.png");
+        botaoTituloPressionado = loadSprite("button_title_down.png");
+        botaoTituloDesativado = loadSprite("button_title_disabled.png");
+
+        botaoTop = loadSprite("button_top.png");
+        botaoTopPressionado = loadSprite("button_top_down.png");
+        botaoTopDesativado = loadSprite("button_top_disabled.png");
+
+        pc = loadSprite("pc.png");
+        pcPressionado = loadSprite("pc_down.png");
 
         tela1Ref = loadSprite("tela1_referencia.png");
         tela2Ref = loadSprite("tela2_referencia.png");
+
+        frame = loadSprite("frame.png");
 
         bitmapFontFile = Gdx.files.internal("font.fnt");
         bitmapFontImage =Gdx.files.internal("font.png");

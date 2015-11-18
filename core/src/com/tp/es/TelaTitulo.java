@@ -1,31 +1,13 @@
 package com.tp.es;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
-import javafx.scene.Camera;
-
-/**
- * Created by Flavio Haueisen on 10/31/15.
- */
 public class TelaTitulo extends ScreenAdapter  {
 
 
@@ -33,6 +15,7 @@ public class TelaTitulo extends ScreenAdapter  {
 
     private static final int MAINMENU = 0;
     private static final int CREDITS = 1;
+    private static final int NAME_INPUT = 2;
 
     private boolean botaoNovoJogoPressionado = false;
     private boolean botaoContinuaJogoPressionado = false;
@@ -51,21 +34,29 @@ public class TelaTitulo extends ScreenAdapter  {
     private BitmapFont font;
     private String creditosTexto;
 
+    private NameInputListener listener;
+
+    private boolean jogoSalvo = false;
+
+    private Preferences prefs;
+
     public TelaTitulo(GameClass tp)
     {
         this.jogo = tp;
 
         clique = new Vector2(-1,-1);
 
-        botaoNovoJogo = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,210,70,true);
-        botaoContinuaJogo = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 1.05f*botaoNovoJogo.getAltura()),210,70,false);
-        botaoCreditos = new Botao(Assets.botao,Assets.botaoPressionado,Assets.botaoDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 2.1f*botaoContinuaJogo.getAltura()),210,70,true);
+        botaoNovoJogo = new Botao(Assets.botaoTitulo,Assets.botaoTituloPressionado,Assets.botaoTituloDesativado,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,210,70,true);
+        botaoContinuaJogo = new Botao(Assets.botaoTitulo,Assets.botaoTituloPressionado,Assets.botaoTituloDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 1.05f*botaoNovoJogo.getAltura()),210,70,false);
+        botaoCreditos = new Botao(Assets.botaoTitulo,Assets.botaoTituloPressionado,Assets.botaoTituloDesativado,Gdx.graphics.getWidth()/2,(int) (Gdx.graphics.getHeight()/2 - 2.1f*botaoContinuaJogo.getAltura()),210,70,true);
 
         botaoNovoJogo.setTexto("Novo Jogo");
         botaoContinuaJogo.setTexto("Continuar");
         botaoCreditos.setTexto("Creditos");
 
         //se existe arquivo de save, ativa botao continua
+
+        listener = new NameInputListener();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -93,8 +84,14 @@ public class TelaTitulo extends ScreenAdapter  {
         });
 
         font = new BitmapFont(Assets.bitmapFontFile,Assets.bitmapFontImage,false);
-
+        font.setColor(0, 0, 0, 1);
         creditosTexto = "Daniel Pereira\nFlavio Haueisen\nHumberto Morais\nJean Freire\nLucas Castro\nThiago Sandi\nWeslei Vilela";
+
+        prefs = Gdx.app.getPreferences("JogoSalvo");
+        jogoSalvo = prefs.getBoolean("existeSalvo", false);
+
+
+        botaoContinuaJogo.ativo = jogoSalvo;
     }
 
     public void update(float deltaTime){
@@ -106,10 +103,23 @@ public class TelaTitulo extends ScreenAdapter  {
         if(estado == MAINMENU) {
 
             if (botaoNovoJogo.verificaCliqueBotao(clique)) {
-                //novo arquivo de save
-                jogo.setScreen(new TelaJogo(jogo));
+                estado = NAME_INPUT;
+                listener.cancelado = false;
+                Gdx.input.getTextInput(listener, "Qual o nome do jogador?", "Sem Nome","");
 
             } else if (botaoContinuaJogo.verificaCliqueBotao(clique)) {
+                prefs.putBoolean("carregaSalvo",true);
+                jogo.setScreen(new TelaJogo(jogo));
+            }
+        }
+        else if(estado == NAME_INPUT)
+        {
+            if(listener.cancelado) {
+                estado = MAINMENU;
+            }
+            else if(!listener.nome.isEmpty()){
+                prefs.putBoolean("carregaSalvo", false);
+                prefs.putString("nome", listener.nome);
                 jogo.setScreen(new TelaJogo(jogo));
             }
         }
@@ -117,19 +127,21 @@ public class TelaTitulo extends ScreenAdapter  {
             estado = (estado + 1) % 2;
         }
         clicou = false;
+
+
     }
 
     @Override
     public void render(float delta) {
         update(delta);
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         jogo.batch.begin();
         //Assets.tela1Ref.draw(jogo.batch);
 
-        if(estado == MAINMENU) {
-            font.draw(jogo.batch,"CLICKER MPS.BR",220,Gdx.graphics.getHeight() - 50);
+        if(estado == MAINMENU || estado == NAME_INPUT) {
+            font.draw(jogo.batch,"ClickSoft",220,Gdx.graphics.getHeight() - 50);
             botaoNovoJogo.draw(jogo.batch);
             botaoContinuaJogo.draw(jogo.batch);
         }
