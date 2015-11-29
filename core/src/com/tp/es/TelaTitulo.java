@@ -83,7 +83,7 @@ public class TelaTitulo extends ScreenAdapter  {
             }
         });
 
-        font = new BitmapFont(Assets.bitmapFontFile,Assets.bitmapFontImage,false);
+        font = new BitmapFont(Assets.bitmapFont32File,Assets.bitmapFont32Image,false);
         font.setColor(0, 0, 0, 1);
         creditosTexto = "Daniel Pereira\nFlavio Haueisen\nHumberto Morais\nJean Freire\nLucas Castro\nThiago Sandi\nWeslei Vilela";
 

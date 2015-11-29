@@ -2,43 +2,28 @@ package com.tp.es;
 
 public class Jogador {
 	
-	public double ClickValueJogador = 0;
-	public String nomeJogador;
+	public static double ClickValueJogador = 1;
+	public static String nomeJogador;
+	public static int dinheiro;
+	public static int nivel = 0;
 
 	
 	//Funcao click jogador
-	public double ClickEvent(){
-			
-		double ClickEventValue;
-		ClickEventValue = this.ClickValueJogador;
-			
-	return ClickEventValue;
+	public static double ClickEvent(){
+
+		return ClickValueJogador;
 	}
 		
 	//Funcao que Atualiza o valor do click do jogador
 	//Vai ser chamada sempre que o jogador subir de nivel
-	public void RefreshClickValue(double pesoClickAdicionado){
+	public static void RefreshClickValue(double pesoClickAdicionado){
 	
-		this.ClickValueJogador = this.ClickValueJogador + pesoClickAdicionado;
+		ClickValueJogador = ClickValueJogador + pesoClickAdicionado;
 		
 	return;	
 	}
 	
-	//Funcoes Get
-	public String GetName(){
-		
-		String NomeJogador = this.nomeJogador;
-	
-	return NomeJogador;
-	}
-	
-	//Funcoes Set
-	public void SetName(String NovoNomeJogador){
-		
-		this.nomeJogador = NovoNomeJogador;
-	
-	return;
-	}
+
 	
 
 }

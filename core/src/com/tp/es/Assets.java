@@ -31,8 +31,14 @@ public class Assets {
     public static Sprite botaoTopPressionado;
     public static Sprite botaoTopDesativado;
 
-    public static FileHandle bitmapFontFile;
-    public static FileHandle bitmapFontImage;
+    public static FileHandle bitmapFont18File;
+    public static FileHandle bitmapFont18Image;
+
+    public static FileHandle bitmapFont24File;
+    public static FileHandle bitmapFont24Image;
+
+    public static FileHandle bitmapFont32File;
+    public static FileHandle bitmapFont32Image;
 
     public static Sprite loadSprite(String file) {
         Texture tex =  new Texture(Gdx.files.internal(file));
@@ -61,7 +67,14 @@ public class Assets {
 
         frame = loadSprite("frame.png");
 
-        bitmapFontFile = Gdx.files.internal("font.fnt");
-        bitmapFontImage =Gdx.files.internal("font.png");
+        bitmapFont18File = Gdx.files.internal("Arial18.fnt");
+        bitmapFont18Image =Gdx.files.internal("Arial18_00.png");
+
+        bitmapFont24File = Gdx.files.internal("Arial24.fnt");
+        bitmapFont24Image =Gdx.files.internal("Arial24_00.png");
+
+        bitmapFont32File = Gdx.files.internal("Arial32.fnt");
+        bitmapFont32Image =Gdx.files.internal("Arial32_00.png");
+
     }
 }

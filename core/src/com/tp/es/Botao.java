@@ -48,7 +48,7 @@ public class Botao {
         this.ativo = ativo;
         this.texto = "";
         this.textoPosicao = new Vector2();
-        this.font = new BitmapFont(Assets.bitmapFontFile,Assets.bitmapFontImage,false);
+        this.font = new BitmapFont(Assets.bitmapFont32File,Assets.bitmapFont32Image,false);
         this.font.setColor(Color.BLACK);
 
     }
