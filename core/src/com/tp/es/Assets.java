@@ -23,6 +23,14 @@ public class Assets {
     public static Sprite botaoPressionado;
     public static Sprite botaoDesativado;
 
+    public static Sprite botaoNext;
+    public static Sprite botaoNextPressionado;
+    public static Sprite botaoNextDesativado;
+
+    public static Sprite botaoObj;
+    public static Sprite botaoObjPressionado;
+    public static Sprite botaoObjDesativado;
+
     public static Sprite botaoTitulo;
     public static Sprite botaoTituloPressionado;
     public static Sprite botaoTituloDesativado;
@@ -50,6 +58,14 @@ public class Assets {
         botao = loadSprite("button.png");
         botaoPressionado = loadSprite("button_down.png");
         botaoDesativado = loadSprite("button_disabled.png");
+
+        botaoNext = loadSprite("button_prox.png");
+        botaoNextPressionado = loadSprite("button_prox_down.png");
+        botaoNextDesativado = loadSprite("button_prox_disabled.png");
+
+        botaoObj = loadSprite("button_obj.png");
+        botaoObjPressionado = loadSprite("button_obj_down.png");
+        botaoObjDesativado = loadSprite("button_obj_disabled.png");
 
         botaoTitulo = loadSprite("button_title.png");
         botaoTituloPressionado = loadSprite("button_title_down.png");

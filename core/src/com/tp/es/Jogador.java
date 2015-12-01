@@ -4,9 +4,9 @@ public class Jogador {
 	
 	public static double ClickValueJogador = 1;
 	public static String nomeJogador;
-	public static int dinheiro;
+	public static float dinheiro;
 	public static int nivel = 0;
-
+	public static float LCpS = 0;
 	
 	//Funcao click jogador
 	public static double ClickEvent(){
