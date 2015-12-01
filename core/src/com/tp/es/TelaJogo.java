@@ -637,8 +637,11 @@ public class TelaJogo extends ScreenAdapter {
         if(estado == JOGANDO)
         {
             if (emStats) {
-                decimal = String.valueOf(Jogador.LCpS).split("\\.");
-                font24.draw(jogo.batch, decimal[0]+"."+decimal[1].charAt(0), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.7f);
+                String[] casadecimal = String.valueOf(Jogador.LCpS).split("\\.");
+                if(casadecimal.length > 1)
+                    font24.draw(jogo.batch, statsTexto1+casadecimal[0]+"."+casadecimal[1].charAt(0), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.7f);
+                else
+                    font24.draw(jogo.batch, statsTexto1+String.valueOf(Jogador.LCpS), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.7f);
                 font24.draw(jogo.batch, statsTexto2+String.valueOf(numObjetos[0]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.65f);
                 font24.draw(jogo.batch, statsTexto3+String.valueOf(numObjetos[1]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.6f);
                 font24.draw(jogo.batch, statsTexto4+String.valueOf(numObjetos[2]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.55f);
