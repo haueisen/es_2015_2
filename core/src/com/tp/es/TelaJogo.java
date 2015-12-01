@@ -591,7 +591,12 @@ public class TelaJogo extends ScreenAdapter {
         botaoAvaliacao.draw(jogo.batch);
         botaoStats.draw(jogo.batch);
 
-        font32.draw(jogo.batch, String.format( "%.1f",progressoLinhasCodigo), Gdx.graphics.getWidth() * 0.06f, Gdx.graphics.getHeight() * 0.65f);
+        String[] decimal = String.valueOf(progressoLinhasCodigo).split("\\.");
+
+        if(decimal.length > 1)
+            font32.draw(jogo.batch,decimal[0]+"."+decimal[1].charAt(0), Gdx.graphics.getWidth() * 0.06f, Gdx.graphics.getHeight() * 0.65f);
+        else
+            font32.draw(jogo.batch,decimal[0], Gdx.graphics.getWidth() * 0.06f, Gdx.graphics.getHeight() * 0.65f);
         font32.draw(jogo.batch, nomeJogador, Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.95f);
         font32.draw(jogo.batch, "$ " + String.valueOf((int)Jogador.dinheiro), Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.82f);
         font32.draw(jogo.batch, "Maturidade: " + nivelMaturidadeTexto, Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.69f);
@@ -632,7 +637,8 @@ public class TelaJogo extends ScreenAdapter {
         if(estado == JOGANDO)
         {
             if (emStats) {
-                font24.draw(jogo.batch, statsTexto1+String.format("%.1f", Jogador.LCpS), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.7f);
+                decimal = String.valueOf(Jogador.LCpS).split("\\.");
+                font24.draw(jogo.batch, decimal[0]+"."+decimal[1].charAt(0), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.7f);
                 font24.draw(jogo.batch, statsTexto2+String.valueOf(numObjetos[0]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.65f);
                 font24.draw(jogo.batch, statsTexto3+String.valueOf(numObjetos[1]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.6f);
                 font24.draw(jogo.batch, statsTexto4+String.valueOf(numObjetos[2]), Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.55f);
