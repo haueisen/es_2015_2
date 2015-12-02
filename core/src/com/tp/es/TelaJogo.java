@@ -40,7 +40,7 @@ public class TelaJogo extends ScreenAdapter {
     private float progressoLinhasCodigo;
     private float totalLinhasCodigo;
 
-    private String conselhoTexto =  "Texto aleatorio para testar Texto \n" +
+    private String ajudaTextoG =  "Texto aleatorio para testar Texto \n" +
                                     "aleatorio para testar Texto aleatorio \n" +
                                     "para testar Texto aleatorio para testar\n" +
                                     "Texto aleatorio para testar Texto \n" +
@@ -95,17 +95,28 @@ public class TelaJogo extends ScreenAdapter {
 
     private Botao botaodesenvolvedor;
     private Botao botaogerenteProjetos;
+    private Botao botaogerenteRequisitos;
     private Botao botaogerenteQualidade;
     private Botao botaogerenteComercial;
     private Botao botaogerenteConfiguracao;
-    private Botao botaogerenteRH;
     private Botao botaogerenteProducao;
+    private Botao botaodiretorProjetos;
 
-    private Botao botaoposGerenciaRequisitos;
     private Botao botaoposMedicao;
-    private Botao botaoMBAProjetos;
+    private Botao botaoposGerenciaProjetos;
     private Botao botaoposGerenciaReutilizacao;
     private Botao botaoposGerenciaProcessos;
+    private Botao botaoposRecursosHumanos;
+    private Botao botaoposGerenciaDesenvolvimentoRequisitos;
+    private Botao botaoMBAIntegracaoProdutos;
+    private Botao botaoMBAProjetoConstrucaoProdutos;
+    private Botao botaoPosValidacao;
+    private Botao botaomestradoProfissionalVerificação;
+    private Botao botaoMBADesenvolvimentoReutilizacao;
+    private Botao botaoMBAGerenciaDecisoes;
+    private Botao botaoMBAGerenciaRisco;
+    private Botao botaoposGerenciaQualitativaProcessos;
+    private Botao botaoMBAInovocao;
 
     public TelaJogo(GameClass tp)
     {
@@ -113,13 +124,13 @@ public class TelaJogo extends ScreenAdapter {
         Perguntas.initArrays();
         Objetos.intArraysObj();
 
-        numObjetos = new int[7];
-        for(int i = 0; i < 7; i++)
+        numObjetos = new int[8];
+        for(int i = 0; i < 8; i++)
         {
             numObjetos[i] = 0;
         }
-        numAtualizacoes = new int[5];
-        for(int i = 0; i < 5; i++)
+        numAtualizacoes = new int[15];
+        for(int i = 0; i < 15; i++)
         {
             numAtualizacoes[i] = 0;
         }
@@ -194,7 +205,7 @@ public class TelaJogo extends ScreenAdapter {
             nivelMaturidadeTexto = prefs.getString("maturidade", "-");
             progressoLinhasCodigo = prefs.getFloat("progressoLinhas", 000);
             totalLinhasCodigo = prefs.getFloat("totalLinhas", 100);
-            Jogador.LCpS = prefs.getFloat("lcps",0);
+            Jogador.LCpS = prefs.getFloat("lcps", 0);
             numObjetos[0] = prefs.getInteger("obj0", 0);
             numObjetos[1] = prefs.getInteger("obj1", 0);
             numObjetos[2] = prefs.getInteger("obj2", 0);
@@ -202,11 +213,22 @@ public class TelaJogo extends ScreenAdapter {
             numObjetos[4] = prefs.getInteger("obj4", 0);
             numObjetos[5] = prefs.getInteger("obj5", 0);
             numObjetos[6] = prefs.getInteger("obj6", 0);
+            numObjetos[7] = prefs.getInteger("obj7", 0);
             numAtualizacoes[0] = prefs.getInteger("up0", 0);
             numAtualizacoes[1] = prefs.getInteger("up1", 0);
             numAtualizacoes[2] = prefs.getInteger("up2", 0);
             numAtualizacoes[3] = prefs.getInteger("up3", 0);
             numAtualizacoes[4] = prefs.getInteger("up4", 0);
+            numAtualizacoes[5] = prefs.getInteger("up5", 0);
+            numAtualizacoes[6] = prefs.getInteger("up6", 0);
+            numAtualizacoes[7] = prefs.getInteger("up7", 0);
+            numAtualizacoes[8] = prefs.getInteger("up8", 0);
+            numAtualizacoes[9] = prefs.getInteger("up9", 0);
+            numAtualizacoes[10] = prefs.getInteger("up10", 0);
+            numAtualizacoes[11] = prefs.getInteger("up11", 0);
+            numAtualizacoes[12] = prefs.getInteger("up12", 0);
+            numAtualizacoes[13] = prefs.getInteger("up13", 0);
+            numAtualizacoes[14] = prefs.getInteger("up14", 0);
         }
         else {
             contadorTemporario = 0;
@@ -250,37 +272,62 @@ public class TelaJogo extends ScreenAdapter {
 
 
         //botoes objetos e atualizacoes
+        //cosntrucoes
         botaodesenvolvedor = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
-        botaogerenteProjetos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
-        botaogerenteQualidade = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
-        botaogerenteComercial = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
+        botaogerenteProjetos= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaogerenteRequisitos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        botaogerenteQualidade = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
 
-        botaodesenvolvedor.setTexto   ("Dev        $15");
-        botaogerenteProjetos.setTexto ("G.Proj.   $100");
-        botaogerenteQualidade.setTexto("G.Qual.   $500");
-        botaogerenteComercial.setTexto("G.Com.   $3000");
+        botaogerenteComercial = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
+        botaogerenteConfiguracao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaogerenteProducao  = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        botaodiretorProjetos  = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
 
-        botaogerenteConfiguracao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
-        botaogerenteRH = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
-        botaogerenteProducao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        //atualizacoes
+        botaoposMedicao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
+        botaoposGerenciaProjetos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaoposGerenciaReutilizacao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        botaoposGerenciaProcessos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
 
-        botaogerenteConfiguracao.setTexto("G.Conf.   $10000");
-        botaogerenteRH.setTexto           ("G.RH.     $40000");
-        botaogerenteProducao.setTexto     ("G.Prod.  $200000");
+        botaoposRecursosHumanos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
+        botaoposGerenciaDesenvolvimentoRequisitos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaoMBAIntegracaoProdutos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        botaoMBAProjetoConstrucaoProdutos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
 
-        botaoposGerenciaRequisitos= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
-        botaoposMedicao= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
-        botaoMBAProjetos= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
-        botaoposGerenciaReutilizacao= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
+        botaoPosValidacao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
+        botaomestradoProfissionalVerificação = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaoMBADesenvolvimentoReutilizacao  = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
+        botaoMBAGerenciaDecisoes  = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*3,280,70,true);
 
-        botaoposGerenciaRequisitos.setTexto ("P.G. em G.Req.");
-        botaoposMedicao.setTexto ("P.G. em Med.");
-        botaoMBAProjetos.setTexto ("P.G. em Projetos.");
-        botaoposGerenciaReutilizacao.setTexto ("P.G. em G.Reut.");
+        botaoMBAGerenciaRisco = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
+        botaoposGerenciaQualitativaProcessos = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75,280,70,true);
+        botaoMBAInovocao = new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f)-75*2,280,70,true);
 
-        botaoposGerenciaProcessos= new Botao(Assets.botaoObj,Assets.botaoObjPressionado,Assets.botaoObjDesativado,(int)(Gdx.graphics.getWidth()*0.873f),(int)(Gdx.graphics.getHeight()*0.465f),280,70,true);
-
-        botaoposGerenciaProcessos.setTexto ("P.G. em G.Proc.");
+        //construcoes
+        botaodesenvolvedor.setTexto                         ("Dev          $15");
+        botaogerenteProjetos.setTexto                       ("G.Proj.     $100");
+        botaogerenteRequisitos.setTexto                     ("G.Req.      $500");
+        botaogerenteQualidade.setTexto                      ("G.Qual.      $3K");
+        botaogerenteComercial.setTexto                      ("G.Com.      $10K");
+        botaogerenteConfiguracao.setTexto                   ("G.Conf.     $40K");
+        botaogerenteProducao.setTexto                       ("G.Prod.    $200K");
+        botaodiretorProjetos.setTexto                       ("D.Proj.  $1,667M");
+        //atualizacoes
+        botaoposMedicao.setTexto                            ("PG.Medicao  $30K");
+        botaoposGerenciaProjetos.setTexto                   ("PG.GProj     $1K");
+        botaoposGerenciaReutilizacao.setTexto               ("PG.GReut   $400K");
+        botaoposGerenciaProcessos.setTexto                  ("PG.GProc     $2M");
+        botaoposRecursosHumanos.setTexto                    ("PG.RH      $100k");
+        botaoposGerenciaDesenvolvimentoRequisitos.setTexto  ("PG.GDReq     $5K");
+        botaoMBAIntegracaoProdutos.setTexto                 ("MBA.IProd  $300K");
+        botaoMBAProjetoConstrucaoProdutos.setTexto          ("MBA.PCProd  $10K");
+        botaoPosValidacao.setTexto                          ("PG.Valid   $500K");
+        botaomestradoProfissionalVerificação.setTexto       ("Me.Verif     $5M");
+        botaoMBADesenvolvimentoReutilizacao.setTexto        ("MBA.DReut    $4M");
+        botaoMBAGerenciaDecisoes.setTexto                   ("MBA.GD      $50K");
+        botaoMBAGerenciaRisco.setTexto                      ("MBA.GRisco  $20M");
+        botaoposGerenciaQualitativaProcessos.setTexto       ("PG.GQP  $16,667M");
+        botaoMBAInovocao.setTexto                           ("MBA.In $166,667M");
 
         botaoProx = new Botao(Assets.botaoNext,Assets.botaoNextPressionado,Assets.botaoNextDesativado,(int)(Gdx.graphics.getWidth()*0.947f),(int)(Gdx.graphics.getHeight()*0.06f),90,40,true);
         botaoAnt = new Botao(Assets.botaoNext,Assets.botaoNextPressionado,Assets.botaoNextDesativado,(int)(Gdx.graphics.getWidth()*0.798f),(int)(Gdx.graphics.getHeight()*0.06f),90,40,true);
@@ -319,19 +366,30 @@ public class TelaJogo extends ScreenAdapter {
                 prefs.putFloat("progressoLinhas", progressoLinhasCodigo);
                 prefs.putFloat("totalLinhas", totalLinhasCodigo);
                 prefs.putFloat("lcps", Jogador.LCpS);
-                //AQUI COLOCAR QTAS DE CADA CONSTRUCAO E ATUALIZACAO
-                prefs.putInteger("obj0",numObjetos[0]);
-                prefs.putInteger("obj1",numObjetos[1]);
-                prefs.putInteger("obj2",numObjetos[2]);
-                prefs.putInteger("obj3",numObjetos[3]);
-                prefs.putInteger("obj4",numObjetos[4]);
+
+                prefs.putInteger("obj0", numObjetos[0]);
+                prefs.putInteger("obj1", numObjetos[1]);
+                prefs.putInteger("obj2", numObjetos[2]);
+                prefs.putInteger("obj3", numObjetos[3]);
+                prefs.putInteger("obj4", numObjetos[4]);
                 prefs.putInteger("obj5",numObjetos[5]);
                 prefs.putInteger("obj6",numObjetos[6]);
+                prefs.putInteger("obj7",numObjetos[7]);
                 prefs.putInteger("up0",numAtualizacoes[0]);
                 prefs.putInteger("up1",numAtualizacoes[1]);
                 prefs.putInteger("up2",numAtualizacoes[2]);
                 prefs.putInteger("up3",numAtualizacoes[3]);
                 prefs.putInteger("up4",numAtualizacoes[4]);
+                prefs.putInteger("up5",numAtualizacoes[0]);
+                prefs.putInteger("up6",numAtualizacoes[1]);
+                prefs.putInteger("up7",numAtualizacoes[2]);
+                prefs.putInteger("up8",numAtualizacoes[3]);
+                prefs.putInteger("up9",numAtualizacoes[4]);
+                prefs.putInteger("up10",numAtualizacoes[0]);
+                prefs.putInteger("up11",numAtualizacoes[1]);
+                prefs.putInteger("up12",numAtualizacoes[2]);
+                prefs.putInteger("up13",numAtualizacoes[3]);
+                prefs.putInteger("up14",numAtualizacoes[4]);
                 prefs.flush();
             }
 
@@ -415,43 +473,86 @@ public class TelaJogo extends ScreenAdapter {
 
             }
 
-            //atualizar stats com infos
-            //atualizar objetos disponiveis
-            //se nivel entao renderiza
-            //senao nao redenriz e botao inativo
             //G
             botaodesenvolvedor.ativo = false;
             botaogerenteProjetos.ativo = false;
+            botaogerenteRequisitos.ativo = false;
             //F
             botaogerenteQualidade.ativo = false;
             botaogerenteComercial.ativo = false;
             botaogerenteConfiguracao.ativo = false;
             //E
-            botaogerenteRH.ativo = false;
             botaogerenteProducao.ativo = false;
-            //G
-            botaoposGerenciaRequisitos.ativo = false;
-            botaoposGerenciaRequisitos.ativo = false;
+            //B
+            botaodiretorProjetos.ativo = false;
+
+            //atualizacoes
             //F
             botaoposMedicao.ativo = false;
-            botaoMBAProjetos.ativo = false;
+            botaoposGerenciaProjetos.ativo = false;
             //E
             botaoposGerenciaReutilizacao.ativo = false;
             botaoposGerenciaProcessos.ativo = false;
+            botaoposRecursosHumanos.ativo = false;
+            //D
+            botaoposGerenciaDesenvolvimentoRequisitos.ativo = false;
+            botaoMBAIntegracaoProdutos.ativo = false;
+            botaoMBAProjetoConstrucaoProdutos.ativo = false;
+            botaoPosValidacao.ativo = false;
+            botaomestradoProfissionalVerificação.ativo = false;
+            //C
+            botaoMBADesenvolvimentoReutilizacao.ativo = false;
+            botaoMBAGerenciaDecisoes.ativo = false;
+            botaoMBAGerenciaRisco.ativo = false;
+            //B
+            botaoposGerenciaQualitativaProcessos.ativo = false;
+            //A
+            botaoMBAInovocao.ativo = false;
 
             switch (Jogador.nivel)
             {
+                case 6:
+                    //A
+                    if(numObjetos[7] > 0 && !Objetos.MBAInovocao.atualizacaoFeita)
+                        botaoMBAInovocao.ativo = true;
+                case 5:
+                    //B
+                    if(Jogador.dinheiro > Objetos.diretorProjetos.custo)
+                        botaodiretorProjetos.ativo = true;
 
+                    if(numObjetos[7] > 0 && !Objetos.posGerenciaQualitativaProcessos.atualizacaoFeita)
+                        botaoposGerenciaQualitativaProcessos.ativo = true;
+                case 4:
+                    //C
+                    if(numObjetos[5] > 0 && !Objetos.MBADesenvolvimentoReutilizacao.atualizacaoFeita)
+                        botaoMBADesenvolvimentoReutilizacao.ativo = true;
+                    if(numObjetos[2] > 0 && !Objetos.MBAGerenciaDecisoes.atualizacaoFeita)
+                        botaoMBAGerenciaDecisoes.ativo = true;
+                    if(numObjetos[6] > 0 && !Objetos.MBAGerenciaRisco.atualizacaoFeita)
+                        botaoMBAGerenciaRisco.ativo = true;
+                case 3:
+                    //D
+                    if(numObjetos[2] > 0 && !Objetos.posGerenciaDesenvolvimentoRequisitos.atualizacaoFeita)
+                        botaoposGerenciaDesenvolvimentoRequisitos.ativo = true;
+                    if(numObjetos[3] > 0 && !Objetos.MBAIntegracaoProdutos.atualizacaoFeita)
+                        botaoMBAIntegracaoProdutos.ativo = true;
+                    if(numObjetos[1] > 0 && !Objetos.MBAProjetoConstrucaoProdutos.atualizacaoFeita)
+                        botaoMBAProjetoConstrucaoProdutos.ativo = true;
+                    if(numObjetos[0] > 0 && !Objetos.PosValidacao.atualizacaoFeita)
+                        botaoPosValidacao.ativo = true;
+                    if(numObjetos[0] > 0 && !Objetos.mestradoProfissionalVerificação.atualizacaoFeita)
+                        botaomestradoProfissionalVerificação.ativo = true;
                 case 2:
                     //E
-                    if(Jogador.dinheiro > Objetos.gerenteRH.custo)
-                        botaogerenteRH.ativo = false;
                     if(Jogador.dinheiro > Objetos.gerenteProducao.custo)
-                        botaogerenteProducao.ativo = false;
-                    //E
-                    // colocar dependencias
-                    botaoposGerenciaReutilizacao.ativo = false;
-                    botaoposGerenciaProcessos.ativo = false;
+                        botaogerenteProducao.ativo = true;
+
+                    if(numObjetos[5] > 0 && !Objetos.posGerenciaReutilizacao.atualizacaoFeita)
+                        botaoposGerenciaReutilizacao.ativo = true;
+                    if(numObjetos[6] > 0 && !Objetos.posGerenciaProcessos.atualizacaoFeita)
+                        botaoposGerenciaProcessos.ativo = true;
+                    if(numObjetos[4] > 0 && !Objetos.posRecursosHumanos.atualizacaoFeita)
+                        botaoposRecursosHumanos.ativo = true;
                 case 1:
                     //F
                     if(Jogador.dinheiro > Objetos.gerenteQualidade.custo)
@@ -460,20 +561,20 @@ public class TelaJogo extends ScreenAdapter {
                         botaogerenteComercial.ativo = true;
                     if(Jogador.dinheiro > Objetos.gerenteConfiguracao.custo)
                         botaogerenteConfiguracao.ativo = true;
-                    //F
-                    //colocar dependencias
-                    botaoposMedicao.ativo = true;
-                    botaoMBAProjetos.ativo = true;
+
+                    if(numObjetos[3] > 0 && !Objetos.posMedicao.atualizacaoFeita)
+                        botaoposMedicao.ativo = true;
+                    if(numObjetos[1] > 0 && !Objetos.posGerenciaProjetos.atualizacaoFeita)
+                        botaoposGerenciaProjetos.ativo = true;
                 case 0:
                     //G
                     if(Jogador.dinheiro > Objetos.desenvolvedor.custo)
                         botaodesenvolvedor.ativo = true;
                     if(Jogador.dinheiro > Objetos.gerenteProjetos.custo)
                         botaogerenteProjetos.ativo = true;
+                    if(Jogador.dinheiro > Objetos.gerenteRequisitos.custo)
+                        botaogerenteRequisitos.ativo = true;
 
-                    //colocar dependencias
-                    botaoposGerenciaRequisitos.ativo = true;
-                    break;
                 default:
                     break;
             }
@@ -489,7 +590,7 @@ public class TelaJogo extends ScreenAdapter {
                 if (pagina > 1)
                     pagina--;
             }
-            //mecanica compra
+            //mecanica compra //AQUI ATUALIZAR
             if (botaodesenvolvedor.verificaCliqueBotao(clique) && clicou) {
                 Jogador.dinheiro -= Objetos.desenvolvedor.custo;
                 numObjetos[0]++;

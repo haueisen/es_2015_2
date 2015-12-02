@@ -9,6 +9,7 @@ public class Obj {
 	public int ID;
 	public double trabalho = 100;
 	public double custo;
+	public boolean atualizacaoFeita = false;
 
 	//Construtor dos funcionários
 	public Obj(int id,String nome, int nivel, double custo, double clicksPorSegundo){
