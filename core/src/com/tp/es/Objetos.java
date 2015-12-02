@@ -56,7 +56,6 @@ public class Objetos {
         /*5*/gerenteConfiguracao = new Obj(id++, "Gerente de Configuração", NIVEL_F, 40000, 100.0);
         /*6*/gerenteProducao = new Obj(id++, "Gerente de Produção", NIVEL_E,200000, 400.0);
         /*7*/diretorProjetos = new Obj(id++, "Diretor de projetos",NIVEL_B,1667000,6666.0);
-
         //inicializador das atualizações
         /*0*/posMedicao = new Obj(id++,"Pós-Graduação em Medição", NIVEL_F,30000,8.0);
         /*1*/posGerenciaProjetos = new Obj(id++,"Pós-Graduação em Gerencia de Projetos", NIVEL_F,1000,0.8);

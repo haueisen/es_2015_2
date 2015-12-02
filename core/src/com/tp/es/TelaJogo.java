@@ -39,25 +39,58 @@ public class TelaJogo extends ScreenAdapter {
     private String nivelMaturidadeTexto;
     private float progressoLinhasCodigo;
     private float totalLinhasCodigo;
+    private String ajudaTexto;
 
-    private String ajudaTextoG =  "Texto aleatorio para testar Texto \n" +
-                                    "aleatorio para testar Texto aleatorio \n" +
-                                    "para testar Texto aleatorio para testar\n" +
-                                    "Texto aleatorio para testar Texto \n" +
-                                    "aleatorio para testar Texto aleatorio \n" +
-                                    "para testar Texto aleatorio para testar \n" +
-                                    "Texto aleatorio para testar";
+    private String ajudaTextoG =  "Requisitos para o próximo nível: \n" +
+                                    "-Desenvolvedor   (Dev) \n" +
+                                    "-Gerente de projetos   (G.Proj.) \n" +
+                                    "-Gerente de Requisitos   (G.Req.)";
+
+    private String ajudaTextoF =  "Requisitos para o próximo nível: \n" +
+                                    "-Gerente Comercial   (G.Com.)\n" +
+                                    "-Gerente de Configuração   (G.Conf.)\n" +
+                                    "-Pós graduação em Gerenciamento \n" +
+                                    "de Projetos (PG.GProj)\n" +
+                                    "-Gerente de Qualidade   (G.Qual.) \n" +
+                                    "-Pós graduação em medição (PG.Medicao)";
+
+    private String ajudaTextoE =  "Requisitos para o próximo nível: \n" +
+                                    "-Pos graduação em gerência de processos  (PG.GProc)\n" +
+                                    "-Gerente de produção   (G.Prod.)\n" +
+                                    "-Pós graduação em gerência de Recursos Humanos  (PG.RH) \n" +
+                                    "-Pós graduação em gerência de reutilização  (PG.GReut)";
+
+    private String ajudaTextoD =  "Requisitos para o próximo nível: \n" +
+                                    "-Pós Graduação em desenvolvimento \n" +
+                                    "de requisitos  (PG.GDReq)\n" +
+                                    "-MBA em Integração de produtos  (MBA.IProd)\n" +
+                                    "-MBA em Projeto e construção de produtos  (MBA.PCPrd) \n" +
+                                    "-Pós Graduação em Validação  (PG.Valid)\n" +
+                                    "-Mestrado Profissional em Verificação  (Me.Verif)";
+
+    private String ajudaTextoC =  "Requisitos para o próximo nível: \n" +
+                                    "-MBA em desenvolvimento de Reutilização  (MBA.DReut)\n" +
+                                    "-Pós Graduação em gerência de Decisões  (MBA.GD)\n" +
+                                    "-Pós Graduação em gerência de Riscos  (MBA.GRisco)";
+
+    private String ajudaTextoB =  "Requisitos para o próximo nível: \n" +
+                                    "-Diretor de Projetos   (D.Proj.)\n" +
+                                    "-Pós Graduação em Gerência \n" +
+                                    "Qualitativa de processos  (PG.GQP)";
+
+    private String ajudaTextoA =  "Requisitos para o próximo nível: \n" +
+                                    "-MBA em Inovação  (MBA.I)";
 
     private String avaliacaoTexto = "Parabéns você atingiu o nível máximo\n de maturidade.\n";
 
     private String statsTexto1 = "Linhas de Código p/segundo (LCpS): ";
-    private String statsTexto2 ="Desenvolvedores (Dev): ";
-    private String statsTexto3 ="Gerente de Projeto (G.Proj.):  ";
-    private String statsTexto4 ="Gerente de Qualidade (G.Qual.): ";
-    private String statsTexto5 ="Gerente Comercial (G.Com.):  ";
-    private String statsTexto6 ="Gerente de Configuração (G.Conf.): ";
-    private String statsTexto7 ="Gerente de RH (G.RH.): ";
-    private String statsTexto8 ="Gerente de Produção (G.Prod.): ";
+    private String statsTexto2 = "Desenvolvedores (Dev): ";
+    private String statsTexto3 = "Gerente de Projeto (G.Proj.):  ";
+    private String statsTexto4 = "Gerente de Requisitos (G.Req.): ";
+    private String statsTexto5 = "Gerente de Qualidade (G.Qual.): ";
+    private String statsTexto6 = "Gerente Comercial (G.Com.):  ";
+    private String statsTexto7 = "Gerente de Configuração (G.Conf.): ";
+    private String statsTexto8 = "Gerente de Produção (G.Prod.): ";
 
     private String textoMeio;
     private boolean emAvaliacao = false;
@@ -75,8 +108,8 @@ public class TelaJogo extends ScreenAdapter {
     private int alternativa = 0;
     private int contadorTemporario;
 
-    private double tempoFeedBack = 3;
-    private double tempoEspera = 6;
+    private double tempoFeedBack = 2;
+    private double tempoEspera = 60;
 
     private double timerFeedback = 0;
     private double timerEspera = 0;
@@ -89,7 +122,7 @@ public class TelaJogo extends ScreenAdapter {
     private int[] numAtualizacoes;
 
     private int pagina = 1;
-    private int totalPaginas = 4;
+    private int totalPaginas = 6;
     private Botao botaoProx;
     private Botao botaoAnt;
 
@@ -320,14 +353,14 @@ public class TelaJogo extends ScreenAdapter {
         botaoposRecursosHumanos.setTexto                    ("PG.RH      $100k");
         botaoposGerenciaDesenvolvimentoRequisitos.setTexto  ("PG.GDReq     $5K");
         botaoMBAIntegracaoProdutos.setTexto                 ("MBA.IProd  $300K");
-        botaoMBAProjetoConstrucaoProdutos.setTexto          ("MBA.PCProd  $10K");
+        botaoMBAProjetoConstrucaoProdutos.setTexto          ("MBA.PCPrd  $10K");
         botaoPosValidacao.setTexto                          ("PG.Valid   $500K");
         botaomestradoProfissionalVerificação.setTexto       ("Me.Verif     $5M");
         botaoMBADesenvolvimentoReutilizacao.setTexto        ("MBA.DReut    $4M");
         botaoMBAGerenciaDecisoes.setTexto                   ("MBA.GD      $50K");
-        botaoMBAGerenciaRisco.setTexto                      ("MBA.GRisco  $20M");
-        botaoposGerenciaQualitativaProcessos.setTexto       ("PG.GQP  $16,667M");
-        botaoMBAInovocao.setTexto                           ("MBA.In $166,667M");
+        botaoMBAGerenciaRisco.setTexto                      ("MBA.GRisco $20M");
+        botaoposGerenciaQualitativaProcessos.setTexto       ("PG.GQP $16,667M");
+        botaoMBAInovocao.setTexto                           ("MBA.I $166,667M");
 
         botaoProx = new Botao(Assets.botaoNext,Assets.botaoNextPressionado,Assets.botaoNextDesativado,(int)(Gdx.graphics.getWidth()*0.947f),(int)(Gdx.graphics.getHeight()*0.06f),90,40,true);
         botaoAnt = new Botao(Assets.botaoNext,Assets.botaoNextPressionado,Assets.botaoNextDesativado,(int)(Gdx.graphics.getWidth()*0.798f),(int)(Gdx.graphics.getHeight()*0.06f),90,40,true);
@@ -513,45 +546,45 @@ public class TelaJogo extends ScreenAdapter {
             {
                 case 6:
                     //A
-                    if(numObjetos[7] > 0 && !Objetos.MBAInovocao.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBAInovocao.custo && numObjetos[7] > 0 && !Objetos.MBAInovocao.atualizacaoFeita)
                         botaoMBAInovocao.ativo = true;
                 case 5:
                     //B
                     if(Jogador.dinheiro > Objetos.diretorProjetos.custo)
                         botaodiretorProjetos.ativo = true;
 
-                    if(numObjetos[7] > 0 && !Objetos.posGerenciaQualitativaProcessos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posGerenciaQualitativaProcessos.custo && numObjetos[7] > 0 && !Objetos.posGerenciaQualitativaProcessos.atualizacaoFeita)
                         botaoposGerenciaQualitativaProcessos.ativo = true;
                 case 4:
                     //C
-                    if(numObjetos[5] > 0 && !Objetos.MBADesenvolvimentoReutilizacao.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBADesenvolvimentoReutilizacao.custo && numObjetos[5] > 0 && !Objetos.MBADesenvolvimentoReutilizacao.atualizacaoFeita)
                         botaoMBADesenvolvimentoReutilizacao.ativo = true;
-                    if(numObjetos[2] > 0 && !Objetos.MBAGerenciaDecisoes.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBAGerenciaDecisoes.custo && numObjetos[2] > 0 && !Objetos.MBAGerenciaDecisoes.atualizacaoFeita)
                         botaoMBAGerenciaDecisoes.ativo = true;
-                    if(numObjetos[6] > 0 && !Objetos.MBAGerenciaRisco.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBAGerenciaRisco.custo && numObjetos[6] > 0 && !Objetos.MBAGerenciaRisco.atualizacaoFeita)
                         botaoMBAGerenciaRisco.ativo = true;
                 case 3:
                     //D
-                    if(numObjetos[2] > 0 && !Objetos.posGerenciaDesenvolvimentoRequisitos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posGerenciaDesenvolvimentoRequisitos.custo && numObjetos[2] > 0 && !Objetos.posGerenciaDesenvolvimentoRequisitos.atualizacaoFeita)
                         botaoposGerenciaDesenvolvimentoRequisitos.ativo = true;
-                    if(numObjetos[3] > 0 && !Objetos.MBAIntegracaoProdutos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBAIntegracaoProdutos.custo && numObjetos[3] > 0 && !Objetos.MBAIntegracaoProdutos.atualizacaoFeita)
                         botaoMBAIntegracaoProdutos.ativo = true;
-                    if(numObjetos[1] > 0 && !Objetos.MBAProjetoConstrucaoProdutos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.MBAProjetoConstrucaoProdutos.custo && numObjetos[1] > 0 && !Objetos.MBAProjetoConstrucaoProdutos.atualizacaoFeita)
                         botaoMBAProjetoConstrucaoProdutos.ativo = true;
-                    if(numObjetos[0] > 0 && !Objetos.PosValidacao.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.PosValidacao.custo && numObjetos[0] > 0 && !Objetos.PosValidacao.atualizacaoFeita)
                         botaoPosValidacao.ativo = true;
-                    if(numObjetos[0] > 0 && !Objetos.mestradoProfissionalVerificação.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.mestradoProfissionalVerificação.custo && numObjetos[0] > 0 && !Objetos.mestradoProfissionalVerificação.atualizacaoFeita)
                         botaomestradoProfissionalVerificação.ativo = true;
                 case 2:
                     //E
                     if(Jogador.dinheiro > Objetos.gerenteProducao.custo)
                         botaogerenteProducao.ativo = true;
 
-                    if(numObjetos[5] > 0 && !Objetos.posGerenciaReutilizacao.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posGerenciaReutilizacao.custo && numObjetos[5] > 0 && !Objetos.posGerenciaReutilizacao.atualizacaoFeita)
                         botaoposGerenciaReutilizacao.ativo = true;
-                    if(numObjetos[6] > 0 && !Objetos.posGerenciaProcessos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posGerenciaProcessos.custo && numObjetos[6] > 0 && !Objetos.posGerenciaProcessos.atualizacaoFeita)
                         botaoposGerenciaProcessos.ativo = true;
-                    if(numObjetos[4] > 0 && !Objetos.posRecursosHumanos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posRecursosHumanos.custo && numObjetos[4] > 0 && !Objetos.posRecursosHumanos.atualizacaoFeita)
                         botaoposRecursosHumanos.ativo = true;
                 case 1:
                     //F
@@ -562,9 +595,9 @@ public class TelaJogo extends ScreenAdapter {
                     if(Jogador.dinheiro > Objetos.gerenteConfiguracao.custo)
                         botaogerenteConfiguracao.ativo = true;
 
-                    if(numObjetos[3] > 0 && !Objetos.posMedicao.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posMedicao.custo && numObjetos[3] > 0 && !Objetos.posMedicao.atualizacaoFeita)
                         botaoposMedicao.ativo = true;
-                    if(numObjetos[1] > 0 && !Objetos.posGerenciaProjetos.atualizacaoFeita)
+                    if(Jogador.dinheiro > Objetos.posGerenciaProjetos.custo && numObjetos[1] > 0 && !Objetos.posGerenciaProjetos.atualizacaoFeita)
                         botaoposGerenciaProjetos.ativo = true;
                 case 0:
                     //G
@@ -590,61 +623,150 @@ public class TelaJogo extends ScreenAdapter {
                 if (pagina > 1)
                     pagina--;
             }
-            //mecanica compra //AQUI ATUALIZAR
-            if (botaodesenvolvedor.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.desenvolvedor.custo;
-                numObjetos[0]++;
-                Jogador.LCpS += Objetos.desenvolvedor.ClickValueObj;
+            //mecanica compra
+            //construcoes
+            if(pagina == 1) {
+                if (botaodesenvolvedor.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.desenvolvedor.custo;
+                    numObjetos[0]++;
+                    Jogador.LCpS += Objetos.desenvolvedor.ClickValueObj;
+                }
+                if (botaogerenteProjetos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteProjetos.custo;
+                    numObjetos[1]++;
+                    Jogador.LCpS += Objetos.gerenteProjetos.ClickValueObj;
+                }
+                if (botaogerenteRequisitos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteRequisitos.custo;
+                    numObjetos[2]++;
+                    Jogador.LCpS += Objetos.gerenteRequisitos.ClickValueObj;
+                }
+                if (botaogerenteQualidade.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteQualidade.custo;
+                    numObjetos[3]++;
+                    Jogador.LCpS += Objetos.gerenteQualidade.ClickValueObj;
+                }
             }
-            if (botaogerenteProjetos.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteProjetos.custo;
-                numObjetos[1]++;
-                Jogador.LCpS += Objetos.gerenteProjetos.ClickValueObj;
+            else if(pagina == 2) {
+                if (botaogerenteComercial.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteComercial.custo;
+                    numObjetos[4]++;
+                    Jogador.LCpS += Objetos.gerenteComercial.ClickValueObj;
+                }
+                if (botaogerenteConfiguracao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteConfiguracao.custo;
+                    numObjetos[5]++;
+                    Jogador.LCpS += Objetos.gerenteConfiguracao.ClickValueObj;
+                }
+                if (botaogerenteProducao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteProducao.custo;
+                    numObjetos[6]++;
+                    Jogador.LCpS += Objetos.gerenteProducao.ClickValueObj;
+                }
+                if (botaodiretorProjetos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.gerenteProjetos.custo;
+                    numObjetos[7]++;
+                    Jogador.LCpS += Objetos.gerenteProjetos.ClickValueObj;
+                }
             }
-            if (botaogerenteQualidade.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteQualidade.custo;
-                numObjetos[2]++;
-                Jogador.LCpS += Objetos.gerenteQualidade.ClickValueObj;
+            //atualizacoes
+            else if(pagina == 3) {
+                if (botaoposMedicao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posMedicao.custo;
+                    numAtualizacoes[0]++;
+                    Objetos.posMedicao.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posMedicao.ClickValueObj;
+                }
+                if (botaoposGerenciaProjetos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posGerenciaProjetos.custo;
+                    numAtualizacoes[1]++;
+                    Objetos.posGerenciaProjetos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posGerenciaProjetos.ClickValueObj;
+                }
+                if (botaoposGerenciaReutilizacao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posGerenciaReutilizacao.custo;
+                    numAtualizacoes[2]++;
+                    Objetos.posGerenciaReutilizacao.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posGerenciaReutilizacao.ClickValueObj;
+                }
+                if (botaoposGerenciaProcessos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posGerenciaProcessos.custo;
+                    numAtualizacoes[3]++;
+                    Objetos.posGerenciaProcessos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posGerenciaProcessos.ClickValueObj;
+                }
             }
-            if (botaogerenteComercial.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteComercial.custo;
-                numObjetos[3]++;
-                Jogador.LCpS += Objetos.gerenteComercial.ClickValueObj;
+            else if(pagina == 4) {
+                if (botaoposRecursosHumanos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posRecursosHumanos.custo;
+                    numAtualizacoes[4]++;
+                    Objetos.posRecursosHumanos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posRecursosHumanos.ClickValueObj;
+                }
+                if (botaoposGerenciaDesenvolvimentoRequisitos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posGerenciaDesenvolvimentoRequisitos.custo;
+                    numAtualizacoes[5]++;
+                    Objetos.posGerenciaDesenvolvimentoRequisitos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posGerenciaDesenvolvimentoRequisitos.ClickValueObj;
+                }
+                if (botaoMBAIntegracaoProdutos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBAIntegracaoProdutos.custo;
+                    numAtualizacoes[6]++;
+                    Objetos.MBAIntegracaoProdutos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBAIntegracaoProdutos.ClickValueObj;
+                }
+                if (botaoMBAProjetoConstrucaoProdutos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBAProjetoConstrucaoProdutos.custo;
+                    numAtualizacoes[7]++;
+                    Objetos.MBAProjetoConstrucaoProdutos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBAProjetoConstrucaoProdutos.ClickValueObj;
+                }
             }
-            if (botaogerenteConfiguracao.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteConfiguracao.custo;
-                numObjetos[4]++;
-                Jogador.LCpS += Objetos.gerenteConfiguracao.ClickValueObj;
+            else if(pagina == 5) {
+                if (botaoPosValidacao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.PosValidacao.custo;
+                    numAtualizacoes[8]++;
+                    Objetos.PosValidacao.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.PosValidacao.ClickValueObj;
+                }
+                if (botaomestradoProfissionalVerificação.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.mestradoProfissionalVerificação.custo;
+                    numAtualizacoes[9]++;
+                    Objetos.mestradoProfissionalVerificação.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.mestradoProfissionalVerificação.ClickValueObj;
+                }
+                if (botaoMBADesenvolvimentoReutilizacao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBADesenvolvimentoReutilizacao.custo;
+                    numAtualizacoes[10]++;
+                    Objetos.MBADesenvolvimentoReutilizacao.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBADesenvolvimentoReutilizacao.ClickValueObj;
+                }
+                if (botaoMBAGerenciaDecisoes.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBAGerenciaDecisoes.custo;
+                    numAtualizacoes[11]++;
+                    Objetos.MBAGerenciaDecisoes.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBAGerenciaDecisoes.ClickValueObj;
+                }
             }
-            if (botaogerenteRH.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteRH.custo;
-                numObjetos[5]++;
-                Jogador.LCpS += Objetos.gerenteRH.ClickValueObj;
-            }
-            if (botaogerenteProducao.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.gerenteProducao.custo;
-                numObjetos[6]++;
-                Jogador.LCpS += Objetos.gerenteProducao.ClickValueObj;
-            }
-            if (botaoposGerenciaRequisitos.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.posGerenciaRequisitos.custo;
-                numAtualizacoes[0]++;
-            }
-            if (botaoposMedicao.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.posMedicao.custo;
-                numAtualizacoes[1]++;
-            }
-            if (botaoMBAProjetos.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.MBAProjetos.custo;
-                numAtualizacoes[2]++;
-            }
-            if (botaoposGerenciaReutilizacao.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.posGerenciaReutilizacao.custo;
-                numAtualizacoes[3]++;
-            }
-            if (botaoposGerenciaProcessos.verificaCliqueBotao(clique) && clicou) {
-                Jogador.dinheiro -= Objetos.posGerenciaProcessos.custo;
-                numAtualizacoes[4]++;
+            else if(pagina == 6) {
+                if (botaoMBAGerenciaRisco.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBAGerenciaRisco.custo;
+                    numAtualizacoes[12]++;
+                    Objetos.MBAGerenciaRisco.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBAGerenciaRisco.ClickValueObj;
+                }
+                if (botaoposGerenciaQualitativaProcessos.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.posGerenciaQualitativaProcessos.custo;
+                    numAtualizacoes[13]++;
+                    Objetos.posGerenciaQualitativaProcessos.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.posGerenciaQualitativaProcessos.ClickValueObj;
+                }
+                if (botaoMBAInovocao.verificaCliqueBotao(clique) && clicou) {
+                    Jogador.dinheiro -= Objetos.MBAInovocao.custo;
+                    numAtualizacoes[14]++;
+                    Objetos.MBAInovocao.atualizacaoFeita = true;
+                    Jogador.LCpS += Objetos.MBAInovocao.ClickValueObj;
+                }
             }
 
         }
@@ -672,6 +794,51 @@ public class TelaJogo extends ScreenAdapter {
         }
         else
             botaoConfirma.ativo = true;
+
+        //ajuda texto
+        botaoAvaliacao.ativo = false;
+        switch (Jogador.nivel) {
+
+            case 7:
+                ajudaTexto = "Ao infinito e além!!!";
+                break;
+            case 6:
+                ajudaTexto = ajudaTextoA;
+                if(numAtualizacoes[14] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 5:
+                ajudaTexto = ajudaTextoB;
+                if(numObjetos[7] > 0 && numAtualizacoes[13] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 4:
+                ajudaTexto = ajudaTextoC;
+                if(numAtualizacoes[10] > 0 && numAtualizacoes[11] > 0 && numAtualizacoes[12] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 3:
+                ajudaTexto = ajudaTextoD;
+                if(numAtualizacoes[9] > 0 && numAtualizacoes[8] > 0 && numAtualizacoes[7] > 0
+                        && numAtualizacoes[6] > 0 && numAtualizacoes[5] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 2:
+                ajudaTexto = ajudaTextoE;
+                if(numObjetos[6] > 0 && numAtualizacoes[2] > 0 && numAtualizacoes[3] > 0 && numAtualizacoes[4] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 1:
+                ajudaTexto = ajudaTextoF;
+                if(numObjetos[3] > 0 && numObjetos[4] > 0 && numObjetos[5] > 0 && numAtualizacoes[0] > 0 && numAtualizacoes[1] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+            case 0:
+                ajudaTexto = ajudaTextoG;
+                if(numObjetos[0] > 0 && numObjetos[1] > 0 && numObjetos[2] > 0)
+                    botaoAvaliacao.ativo = true;
+                break;
+        }
 
     }
 
@@ -706,30 +873,50 @@ public class TelaJogo extends ScreenAdapter {
 
         if (pagina == 1) {
             font32.draw(jogo.batch, "Construções", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
+
             botaodesenvolvedor.draw(jogo.batch);
             botaogerenteProjetos.draw(jogo.batch);
+            botaogerenteRequisitos.draw(jogo.batch);
             botaogerenteQualidade.draw(jogo.batch);
-            botaogerenteComercial.draw(jogo.batch);
         }
         else if (pagina == 2)
         {
             font32.draw(jogo.batch, "Construções", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
+            botaogerenteComercial.draw(jogo.batch);
             botaogerenteConfiguracao.draw(jogo.batch);
-            botaogerenteRH.draw(jogo.batch);
             botaogerenteProducao.draw(jogo.batch);
+            botaodiretorProjetos.draw(jogo.batch);
         }
         else if (pagina == 3)
         {
             font32.draw(jogo.batch, "Atualizações", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
-            botaoposGerenciaRequisitos.draw(jogo.batch);
             botaoposMedicao.draw(jogo.batch);
-            botaoMBAProjetos.draw(jogo.batch);
+            botaoposGerenciaProjetos.draw(jogo.batch);
             botaoposGerenciaReutilizacao.draw(jogo.batch);
+            botaoposGerenciaProcessos.draw(jogo.batch);
         }
         else if (pagina == 4)
         {
             font32.draw(jogo.batch, "Atualizações", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
-            botaoposGerenciaProcessos.draw(jogo.batch);
+            botaoposRecursosHumanos.draw(jogo.batch);
+            botaoposGerenciaDesenvolvimentoRequisitos.draw(jogo.batch);
+            botaoMBAIntegracaoProdutos.draw(jogo.batch);
+            botaoMBAProjetoConstrucaoProdutos.draw(jogo.batch);
+        }
+        else if (pagina == 5)
+        {
+            font32.draw(jogo.batch, "Atualizações", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
+            botaoPosValidacao.draw(jogo.batch);
+            botaomestradoProfissionalVerificação.draw(jogo.batch);
+            botaoMBADesenvolvimentoReutilizacao.draw(jogo.batch);
+            botaoMBAGerenciaDecisoes.draw(jogo.batch);
+        }
+        else if (pagina == 6)
+        {
+            font32.draw(jogo.batch, "Atualizações", Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.57f);
+            botaoMBAGerenciaRisco.draw(jogo.batch);
+            botaoposGerenciaQualitativaProcessos.draw(jogo.batch);
+            botaoMBAInovocao.draw(jogo.batch);
         }
         botaoProx.draw(jogo.batch);
         botaoAnt.draw(jogo.batch);
@@ -766,7 +953,7 @@ public class TelaJogo extends ScreenAdapter {
                     font32.draw(jogo.batch, avaliacaoTexto, Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.79f);
                 }
             } else if (emAjuda) {
-
+                font24.draw(jogo.batch, ajudaTexto, Gdx.graphics.getWidth() * 0.28f, Gdx.graphics.getHeight() * 0.79f);
             }
         }
         else if(estado == FEEDBACK)
